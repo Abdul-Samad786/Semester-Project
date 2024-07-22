@@ -1,3 +1,6 @@
+
+                                                                       Code
+
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -220,3 +223,192 @@ int main() {
 
     return 0;
 }
+
+
+                                                                               Output
+
+
+ 
+Enter the details of the sender: 
+Enter name: Abdul Samad 
+Enter ID: 36203-323233-8 
+Enter contact information: abdul@gmail.com 
+Enter the details of the receiver: 
+Enter name: Ali 
+Enter ID: 36203-323232-3 
+Enter contact information: alicode@gmail.com 
+Abdul Samad is sending a cipher message to Ali 
+Select encryption method: 
+1. Caesar Cipher 
+2. Reverse Cipher 
+Enter your choice (1 or 2): 1 
+Enter message: Hello World 
+Enter a value by your choice to change the message into your cipher message: Enter your choice (number): 3 
+Encrypted message: Khoor#Zruog 
+Encrypted message saved to 'encrypted_message.txt' 
+Cipher sending process......................... 
+Sending finished............................... 
+................................... 
+Case of receiver person 
+Enter the code to open the cipher: open.cipher 
+Decrypted message: Hello World 
+Program finished delete receiver; 
+return 0; 
+}
+
+
+
+
+                                                                              Code execution step: 
+
+
+1. The program starts by prompting the user to enter details about the sender: ○ Name: Abdul Samad 
+○ ID: 36203-323233-8 
+○ Contact information: abdul@gmail.com 
+2. Next, the program prompts the user to enter details about the receiver: ○ Name: Ali 
+○ ID: 36203-323232-3 
+○ Contact information: alicode@gmail.com 
+3. The program displays a message indicating that Abdul Samad is sending a ciphered message to Ali. 
+4. The user is asked to select an encryption method: 
+2. Caesar Cipher 
+3. Reverse Cipher 
+5. The user selects option 1 for the Caesar Cipher encryption method. 6. The user enters the message "Hello World" to be encrypted. 
+7. The user enters a value (in this case, 3) to change the message into the cipher message. 
+8. The program encrypts the message using the Caesar Cipher method and displays the encrypted message: "Khoor#Zruog". 
+9. The encrypted message is saved to a file named 'encrypted_message.txt'. 10.The program simulates the sending process and displays messages indicating that the sending is finished. 
+11. The program prompts the receiver (Ali) to enter the code to open the cipher. The correct code is "open.cipher". 
+12.Upon entering the correct code, the program reads the encrypted message from the file 'encrypted_message.txt' and decrypts it. 
+13.The decrypted message "Hello World" is displayed. 
+14.Finally, the program displays a message indicating that the program has finished.
+Components of the Program 
+1. Person Structure: 
+○ This structure holds the details of a person, including their name, ID, and contact information. 
+○ It has a constructor for initializing these details and a method to display them. 2. CipherMessage Structure: 
+○ This structure is responsible for handling the encryption and decryption of messages. ○ It includes the message, an encryption key, the sender and receiver (as Person objects), and the encryption method. 
+○ It has methods for encrypting and decrypting messages using either Caesar Cipher or Reverse Cipher techniques. 
+○ Private methods are provided for the actual encryption and decryption logic of each method. 
+3. createPerson Function: 
+○ This function prompts the user to enter the details of a person and returns a new Person object. 
+4. selectEncryptionMethod Function: 
+○ This function allows the user to choose an encryption method (Caesar Cipher or Reverse Cipher). 
+5. Main Function: 
+○ The main function orchestrates the workflow of the program: 
+■ It prompts for sender and receiver details. 
+■ It selects an encryption method. 
+■ It takes the message input and an encryption key. 
+■ It creates a CipherMessage object and encrypts the message. 
+■ The encrypted message is saved to a file. 
+■ The receiver is prompted to enter a code to decrypt the message.
+■ The encrypted message is read from the file and decrypted if the correct code is provided. 
+Importance of the Program 
+Secure Communication: 
+○ The primary importance of this program is to facilitate secure communication. By encrypting the message, it ensures that only the intended receiver, who knows the correct decryption method and key, can read the message. 
+Encryption Techniques: 
+● The program demonstrates basic encryption techniques: 
+○ Caesar Cipher: A simple substitution cipher where each letter in the plaintext is shifted by a fixed number of places down the alphabet. 
+○ Reverse Cipher: A straightforward technique where the message is reversed. File Handling: 
+● By saving the encrypted message to a file and reading it back, the program shows basic file handling capabilities in C++. 
+Description 
+his code is designed to facilitate secure messaging between a sender and a receiver using encryption techniques. It begins by prompting the user to input details for the sender, including their name, ID, and contact information. Similarly, it collects the details of the receiver, such as name, ID, and contact information. This step ensures that the sender and receiver are identified within the messaging system. 
+After obtaining the sender and receiver details, the program presents the sender with a choice of encryption methods: Caesar Cipher or Reverse Cipher. The sender selects one of these methods, which will be used to encrypt the message before sending it to the receiver. 
+Once the encryption method is chosen, the sender inputs the message they want to send. Additionally, the sender selects a numerical value, which serves as the encryption key. This key determines how the message will be encrypted using the chosen method. 
+The code then encrypts the message based on the selected method and encryption key. For example, if the Caesar Cipher method is chosen with a key of 3, the message "Hello World" would be encrypted to "Khoor#Zruog." 
+The encrypted message is then saved to a file named "encrypted_message.txt." This file serves as a secure container for the encrypted communication between the sender and receiver.
+Next, the code simulates a sending process, indicating that the message has been successfully sent from the sender to the receiver. The receiver is prompted to enter a specific code ("open.cipher") to access and decrypt the message. 
+Upon entering the correct code, the program retrieves the encrypted message from the file. It then decrypts the message using the same encryption method and key selected by the sender. This decryption process ensures that only the intended receiver can access and understand the original message. 
+Finally, the decrypted message is displayed, allowing the receiver to read the message sent by the sender in its original form. The code also includes error handling mechanisms to manage invalid inputs, ensuring a smooth and secure messaging experience between the sender and receiver. 
+ 
+
+                                                                            Code Block Diagram : 
+Using 7 step: 
++-----------------------------------+ 
+| Start Program | 
++-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 1: Enter Sender's Details | 
+| - Name | 
+| - ID | 
+| - Contact Information | 
++-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 1: Enter Receiver's Details | 
+| - Name | 
+| - ID | 
+| - Contact Information | 
++-----------------------------------+
+| 
+v 
++-----------------------------------+ 
+| Step 2: Select Encryption Method | | - 1. Caesar Cipher | | - 2. Reverse Cipher | +-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 3: Enter Message | +-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 3: Enter Encryption Key | | (if Caesar Cipher is chosen) | +-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 4: Create CipherMessage Object| +-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 4: Encrypt Message | +-----------------------------------+ 
+| 
+v 
++-----------------------------------+ 
+| Step 4: Save Encrypted Message | | to File "encrypted_message.txt" | +-----------------------------------+ 
+|
+v 
++-----------------------------------+ | Step 5: Simulate Sending Process | +-----------------------------------+ | 
+v 
++-----------------------------------+ | Step 6: Enter Code to Open Cipher | +-----------------------------------+ | 
+v 
++-----------------------------------+ | Step 7: If Code is Correct: | | - Read Encrypted Message from File| | - Decrypt Message | | - Display Decrypted Message | | If Code is Incorrect: | | - Display Error Message | +-----------------------------------+ | 
+v 
++-----------------------------------+ | Step 7: Clean Up (Free Allocated | | Memory) | 
++-----------------------------------+ | 
+v 
++-----------------------------------+ | End Program | +-----------------------------------+
+
+
+
+
+
+                                                                     Step to solve problem : 
+
+
+Step 1: Define the Problem 
+Objective: Create a program to securely encrypt and decrypt messages using either Caesar Cipher or Reverse Cipher, facilitating communication between a sender and a receiver. 
+Step 2: Analyze the Problem 
+Requirements: 
+Input sender and receiver details. 
+Select encryption method. 
+Input message to encrypt. 
+Save the encrypted message to a file. 
+Input code to decrypt the message. 
+Decrypt the message and display it. 
+Step 3: Identify Possible Solutions 
+Approaches: 
+Use Caesar Cipher for encryption and decryption. 
+Use Reverse Cipher for encryption and decryption. 
+Implement a user-friendly interface for inputs and outputs. 
+Step 4: Select the Best Solution 
+Chosen Solution: Implement both Caesar Cipher and Reverse Cipher, allowing the user to select the preferred method. 
+Step 5: Develop an Action Plan 
+Plan: 
+Define classes for Person and CipherMessage.
+Implement methods for encryption and decryption. Create functions for user input. 
+Write the main function to integrate all components. Step 6: Implement the Solution 
+Implementation: Develop the program in C++ following the plan. 
+Step 7: Test the Solution 
+Testing: 
+Test with different inputs for sender and receiver. Test both encryption methods. 
+Verify file saving and loading. 
+Test decryption with correct and incorrect codes.
