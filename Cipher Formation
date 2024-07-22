@@ -1,0 +1,222 @@
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <limits>
+#include <string>
+using namespace std;
+
+// Structure representing a person
+struct Person {
+    string name;
+    string id;
+    string contactInfo;
+
+    // Constructor
+    Person(string name, string id, string contactInfo)
+        : name(name), id(id), contactInfo(contactInfo) {}
+
+    // Method to display person's details
+    void display() const {
+        cout << "Name: " << name << ", ID: " << id << ", Contact: " << contactInfo << endl;
+    }
+};
+
+// Structure representing a ciphered message
+struct CipherMessage {
+    string message;
+    int key;
+    Person *sender; // Pointer to sender's Person object
+    Person *receiver; // Pointer to receiver's Person object
+    string method;
+
+    // Constructor
+    CipherMessage(string message, int key, Person *sender, Person *receiver, string method)
+        : message(message), key(key), sender(sender), receiver(receiver), method(method) {}
+
+    // Method to encrypt the message
+    string encrypt() const {
+        if (method == "caesar" || method == "reverse") {
+            switch (method[0]) {
+                case 'c': // caesar cipher
+                    return caesarCipherEncrypt(message, key);
+                case 'r': // reverse cipher
+                    return reverseCipherEncrypt(message);
+                default:
+                    cout << "Error: Unknown encryption method: " << method << endl;
+                    return "";
+            }
+        } else {
+            cout << "Error: Unknown encryption method: " << method << endl;
+            return "";
+        }
+    }
+
+    // Method to decrypt the message
+    string decrypt(const string &encryptedMessage) const {
+        if (method == "caesar" || method == "reverse") {
+            switch (method[0]) {
+                case 'c': // caesar cipher
+                    return caesarCipherDecrypt(encryptedMessage, key);
+                case 'r': // reverse cipher
+                    return reverseCipherDecrypt(encryptedMessage);
+                default:
+                    cout << "Error: Unknown decryption method: " << method << endl;
+                    return "";
+            }
+        } else {
+            cout << "Error: Unknown decryption method: " << method << endl;
+            return "";
+        }
+    }
+
+private:
+    // Static methods for encryption and decryption
+    static string caesarCipherEncrypt(const string &message, int key) {
+        string encryptedMessage;
+        for (char c : message) {
+            encryptedMessage += c + key;
+        }
+        return encryptedMessage;
+    }
+
+    static string caesarCipherDecrypt(const string &message, int key) {
+        string decryptedMessage;
+        for (char c : message) {
+            decryptedMessage += c - key;
+        }
+        return decryptedMessage;
+    }
+
+    static string reverseCipherEncrypt(const string &message) {
+        return string(message.rbegin(), message.rend());
+    }
+
+    static string reverseCipherDecrypt(const string &message) {
+        return string(message.rbegin(), message.rend());
+    }
+};
+
+// Function to create a Person object interactively
+Person *createPerson() {
+    string name, id, contactInfo;
+    cout << "Enter name: ";
+    getline(cin, name);
+    cout << "Enter ID: ";
+    getline(cin, id);
+    cout << "Enter contact information: ";
+    getline(cin, contactInfo);
+    return new Person(name, id, contactInfo); // Dynamically allocating a Person object
+}
+
+// Function to select encryption method interactively
+string selectEncryptionMethod() {
+    int choice;
+    cout << "Select encryption method:\n";
+    cout << "1. Caesar Cipher\n";
+    cout << "2. Reverse Cipher\n";
+    while (true) {
+        cout << "Enter your choice (1 or 2): ";
+        cin >> choice;
+        cin.ignore(); // Consume newline
+        switch (choice) {
+            case 1:
+                return "caesar";
+            case 2:
+                return "reverse";
+            default:
+                cout << "Invalid choice. Please enter 1 or 2.\n";
+        }
+    }
+}
+
+int main() {
+    // Prompting for sender's details
+    cout << "Enter the details of the sender:\n";
+    Person *sender = createPerson();
+
+    // Prompting for receiver's details
+    cout << "Enter the details of the receiver:\n";
+    Person *receiver = createPerson();
+
+    // Displaying sender and receiver information
+    cout << sender->name << " is sending a cipher message to " << receiver->name << endl;
+
+    // Selecting encryption method
+    string method = selectEncryptionMethod();
+    string inputMessage;
+    int choice;
+
+    // Getting input message to be encrypted
+    cout << "Enter message: ";
+    getline(cin, inputMessage);
+
+    // Getting encryption key or parameter
+    cout << "Enter a value of your choice to change the message into your cipher message: ";
+    while (true) {
+        cout << "Enter your choice (number): ";
+        if (cin >> choice) {
+            cin.ignore(); // Consume newline left-over
+            break;
+        } else {
+            cout << "Invalid input. Please enter a valid number.\n";
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+        }
+    }
+
+    // Creating a CipherMessage object with input details
+    CipherMessage cipherMessage(inputMessage, choice, sender, receiver, method);
+
+    // Encrypting the message
+    string encryptedMessage = cipherMessage.encrypt();
+    if (!encryptedMessage.empty()) {
+        // Displaying encrypted message on the terminal
+        cout << "Encrypted message: " << encryptedMessage << endl;
+
+        // Saving encrypted message to file
+        ofstream outFile("encrypted_message.txt");
+        if (outFile.is_open()) {
+            outFile << encryptedMessage;
+            outFile.close();
+            cout << "Encrypted message saved to 'encrypted_message.txt'\n";
+        } else {
+            cout << "Error: Unable to open file for writing\n";
+        }
+
+        // Simulating a process where the receiver decrypts the message
+        cout << "Cipher sending process.........................\n";
+        cout << "Sending finished...............................\n";
+        cout << "...................................\n";
+        cout << "Case of receiver person\n";
+        cout << "Enter the code to open the cipher: ";
+        string code;
+        getline(cin, code);
+        if (code == "open.cipher") {
+            // Reading encrypted message from file
+            ifstream inFile("encrypted_message.txt");
+            string encryptedMessageFromFile;
+            if (inFile.is_open()) {
+                getline(inFile, encryptedMessageFromFile);
+                inFile.close();
+
+                // Decrypting the message
+                string decryptedMessage = cipherMessage.decrypt(encryptedMessageFromFile);
+                if (!decryptedMessage.empty()) {
+                    cout << "Decrypted message: " << decryptedMessage << endl;
+                }
+            } else {
+                cout << "Error: Unable to open file for reading\n";
+            }
+        } else {
+            cout << "Invalid code\n";
+        }
+    }
+
+    cout << "Program finished\n";
+
+    // Cleaning up dynamically allocated memory
+    delete sender;
+    delete receiver;
+
+    return 0;
+}
